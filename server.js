@@ -21,11 +21,15 @@ const swaggerOptions = {
   
   const swaggerDocs = swaggerJsDoc(swaggerOptions);
   app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs, {
-    customCssUrl: "https://tu-api.onrender.com/swagger-custom.css"
+    customCss: `
+      .swagger-ui .topbar-wrapper img {
+        content: url('https://upload.wikimedia.org/wikipedia/en/7/79/Initial_D_Logo.png');
+        width: 200px;
+        height: auto;
+      }
+    `
   }));
-
-  const path = require("path");
-app.use(express.static(path.join(__dirname, "public")));
+  
 
 
 
