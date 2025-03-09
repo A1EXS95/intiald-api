@@ -20,7 +20,13 @@ const swaggerOptions = {
   };
   
   const swaggerDocs = swaggerJsDoc(swaggerOptions);
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs, { customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css" }));
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs, {
+    customCssUrl: "https://tu-api.onrender.com/swagger-custom.css"
+  }));
+
+  const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
+
 
 
 
