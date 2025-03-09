@@ -11,16 +11,16 @@ const swaggerOptions = {
     definition: {
       openapi: "3.0.0",
       info: {
-        title: "Initial D API",
+        title: "Initial D API 🚗💨",
         version: "1.0.0",
-        description: "API con información sobre los coches de Initial D",
+        description: "API con información sobre los coches de Initial D. Incluye marcas, modelos de vehículos, pilotos e imagenes.",
       },
     },
-    apis: ["server.js"],
+    apis: ["server.js"]
   };
   
   const swaggerDocs = swaggerJsDoc(swaggerOptions);
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs, { customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css" }));
 
 
 
@@ -339,8 +339,65 @@ const cars = [
     }
 ]
 
+/**
+ * @swagger
+ * /cars:
+ *   get:
+ *     summary: Obtiene la lista de coches de Initial D
+ *     description: Devuelve una lista con los coches más icónicos de Initial D.
+ *     responses:
+ *       200:
+ *         description: Lista de coches
+ *         content:
+ *           application/json:
+ *             example:
+ *               - id: 12,
+ *                 marca: "Toyota",
+ *                 modelo: "Spriter Trueno GT_APEX (AE86)",
+ *                 piloto: "Takumi Fujiwara",
+ *                 traccion: "RWD",
+ *                 imagen: "https://static.wikia.nocookie.net/initiald/images/f/f2/AE86T_Spec_III_Manga.png"
+ */
 app.get("/cars", (req, res) => {
     res.json(cars);
+  });
+  
+  /**
+   * @swagger
+   * /cars/{id}:
+   *   get:
+   *     summary: Obtiene un coche por su ID
+   *     description: Busca un coche específico por su ID.
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: ID del coche a buscar
+   *     responses:
+   *       200:
+   *         description: Datos del coche encontrado
+   *         content:
+   *           application/json:
+   *             example:
+ *                 id: 12,
+ *                 marca: "Toyota",
+ *                 modelo: "Spriter Trueno GT_APEX (AE86)",
+ *                 piloto: "Takumi Fujiwara",
+ *                 traccion: "RWD",
+ *                 imagen: "https://static.wikia.nocookie.net/initiald/images/f/f2/AE86T_Spec_III_Manga.png"
+   *       404:
+   *         description: Coche no encontrado
+   */
+
+  app.get("/cars/:id", (req, res) => {
+    const car = cars.find(c => c.id === parseInt(req.params.id));
+    if (car) {
+      res.json(car);
+    } else {
+      res.status(404).json({ error: "Coche no encontrado" });
+    }
   });
   
   const PORT = process.env.PORT || 3000;
