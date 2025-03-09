@@ -1,8 +1,28 @@
 const express = require("express");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
 
 const app = express();
 app.use(cors());
+
+
+const swaggerOptions = {
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: "Initial D API",
+        version: "1.0.0",
+        description: "API con información sobre los coches de Initial D",
+      },
+    },
+    apis: ["server.js"],
+  };
+  
+  const swaggerDocs = swaggerJsDoc(swaggerOptions);
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+
 
 const cars = [
     {
