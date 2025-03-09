@@ -13,7 +13,50 @@ const swaggerOptions = {
       info: {
         title: "Initial D API 🚗💨",
         version: "1.0.0",
-        description: "API con información sobre los coches de Initial D. Incluye marcas, modelos de vehículos, pilotos e imagenes.",
+        description: `<img src="https://upload.wikimedia.org/wikipedia/en/7/79/Initial_D_Logo.png" width="300" />
+                      <p>API con información sobre los coches de Initial D. Incluye modelos, pilotos, motores y más.</p>
+                      <p>/cars:
+                         get:
+                         summary: Obtiene la lista de coches de Initial D
+                         description: Devuelve una lista con los coches más icónicos de Initial D.
+                         responses:
+                             200:
+                             description: Lista de coches
+                             content:
+                                 application/json:
+                                 example:
+                                     id: 12,
+                                     marca: "Toyota",
+                                     modelo: "Spriter Trueno GT_APEX (AE86)",
+                                     piloto: "Takumi Fujiwara",
+                                     traccion: "RWD",
+                                     imagen: "https://static.wikia.nocookie.net/initiald/images/f/f2/AE86T_Spec_III_Manga.png"</p>
+                                     
+                       <p>/cars/{id}:
+                            get:
+                                summary: Obtiene un coche por su ID
+                                description: Busca un coche específico por su ID.
+                                parameters:
+                                - in: path
+                                    name: id
+                                    required: true
+                                    schema:
+                                    type: integer
+                                    description: ID del coche a buscar
+                                responses:
+                                200:
+                                    description: Datos del coche encontrado
+                                    content:
+                                    application/json:
+                                        example:
+                                        id: 12,
+                                        marca: "Toyota",
+                                        modelo: "Spriter Trueno GT_APEX (AE86)",
+                                        piloto: "Takumi Fujiwara",
+                                        traccion: "RWD",
+                                        imagen: "https://static.wikia.nocookie.net/initiald/images/f/f2/AE86T_Spec_III_Manga.png"
+                                404:
+                                    description: Coche no encontrado</p>`,
       },
     },
     apis: ["server.js"]
