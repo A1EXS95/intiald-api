@@ -486,9 +486,9 @@ const coches = [
  *                 traccion: "RWD",
  *                 imagen: "https://static.wikia.nocookie.net/initiald/images/f/f2/AE86T_Spec_III_Manga.png"
  */
-app.get("/coches", (req, res) => {
-    res.json(cars);
-  });
+// app.get("/coches", (req, res) => {
+//     res.json(cars);
+//   });
   
   /**
    * @swagger
@@ -519,68 +519,68 @@ app.get("/coches", (req, res) => {
    *         description: Coche no encontrado
    */
 
-  app.get("/coches/:id", (req, res) => {
-    const id = cars.find(c => c.id === parseInt(req.params.id));
-    if (id) {
-      res.json(id);
-    } else {
-      res.status(404).json({ error: "Coche no encontrado" });
-    }
-  });
+//   app.get("/coches/:id", (req, res) => {
+//     const id = cars.find(c => c.id === parseInt(req.params.id));
+//     if (id) {
+//       res.json(id);
+//     } else {
+//       res.status(404).json({ error: "Coche no encontrado" });
+//     }
+//   });
   
-  app.get("/coches/:marca?", (req, res) => {
-    const { marca } = req.params;
-    const cochesFiltrados = coches.filter(coche => coche.marca.toLowerCase() === marca.toLowerCase());
+//   app.get("/coches/:marca?", (req, res) => {
+//     const { marca } = req.params;
+//     const cochesFiltrados = coches.filter(coche => coche.marca.toLowerCase() === marca.toLowerCase());
 
-    if (cochesFiltrados.length > 0) {
-        res.json(cochesFiltrados);
-    } else {
-        res.status(404).json({ error: "No se encontraron coches con esa marca" });
-    }
-});
-
-app.get("/coches/:equipo?", (req, res) => {
-    const { equipo } = req.params;
-    const cochesFiltrados = coches.filter(coche => coche.equipo.some(e => e.toLowerCase() === equipo.toLowerCase()));
-
-    if (cochesFiltrados.length > 0) {
-        res.json(cochesFiltrados);
-    } else {
-        res.status(404).json({ error: "No se encontraron coches en ese equipo" });
-    }
-});
-
-app.get("/coches/:traccion?", (req, res) => {
-    const { traccion } = req.params;
-    const cochesFiltrados = coches.filter(coche => coche.traccion.toLowerCase() === traccion.toLowerCase());
-
-    if (cochesFiltrados.length > 0) {
-        res.json(cochesFiltrados);
-    } else {
-        res.status(404).json({ error: "No se encontraron coches con esa tracción" });
-    }
-});
-
-
-//   app.get("/api/coches", (req, res) => {
-//     const { marca, equipo, traccion } = req.query;
-
-//     let cochesFiltrados = coches;
-
-//     if (marca) {
-//         cochesFiltrados = cochesFiltrados.filter(coche => coche.marca.toLowerCase() === marca.toLowerCase());
+//     if (cochesFiltrados.length > 0) {
+//         res.json(cochesFiltrados);
+//     } else {
+//         res.status(404).json({ error: "No se encontraron coches con esa marca" });
 //     }
-    
-//     if (equipo) {
-//         cochesFiltrados = cochesFiltrados.filter(coche => coche.equipo.some(e => e.toLowerCase() === equipo.toLowerCase()));
-//     }
-
-//     if (traccion) {
-//         cochesFiltrados = cochesFiltrados.filter(coche => coche.traccion.toLowerCase() === traccion.toLowerCase());
-//     }
-
-//     res.json(cochesFiltrados);
 // });
+
+// app.get("/coches/:equipo?", (req, res) => {
+//     const { equipo } = req.params;
+//     const cochesFiltrados = coches.filter(coche => coche.equipo.some(e => e.toLowerCase() === equipo.toLowerCase()));
+
+//     if (cochesFiltrados.length > 0) {
+//         res.json(cochesFiltrados);
+//     } else {
+//         res.status(404).json({ error: "No se encontraron coches en ese equipo" });
+//     }
+// });
+
+// app.get("/coches/:traccion?", (req, res) => {
+//     const { traccion } = req.params;
+//     const cochesFiltrados = coches.filter(coche => coche.traccion.toLowerCase() === traccion.toLowerCase());
+
+//     if (cochesFiltrados.length > 0) {
+//         res.json(cochesFiltrados);
+//     } else {
+//         res.status(404).json({ error: "No se encontraron coches con esa tracción" });
+//     }
+// });
+
+
+  app.get("/api/coches", (req, res) => {
+    const { marca, equipo, traccion } = req.query;
+
+    let cochesFiltrados = coches;
+
+    if (marca) {
+        cochesFiltrados = cochesFiltrados.filter(coche => coche.marca.toLowerCase() === marca.toLowerCase());
+    }
+    
+    if (equipo) {
+        cochesFiltrados = cochesFiltrados.filter(coche => coche.equipo.some(e => e.toLowerCase() === equipo.toLowerCase()));
+    }
+
+    if (traccion) {
+        cochesFiltrados = cochesFiltrados.filter(coche => coche.traccion.toLowerCase() === traccion.toLowerCase());
+    }
+
+    res.json(cochesFiltrados);
+});
 
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => console.log(`API corriendo en http://localhost:${PORT}`));
