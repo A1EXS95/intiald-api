@@ -520,9 +520,9 @@ app.get("/cars", (req, res) => {
    */
 
   app.get("/cars/:id", (req, res) => {
-    const car = cars.find(c => c.id === parseInt(req.params.id));
-    if (car) {
-      res.json(car);
+    const id = cars.find(c => c.id === parseInt(req.params.id));
+    if (id) {
+      res.json(id);
     } else {
       res.status(404).json({ error: "Coche no encontrado" });
     }
@@ -530,27 +530,27 @@ app.get("/cars", (req, res) => {
   
 
   app.get("/cars/:marca", (req, res) => {
-    const car = cars.find(c => c.id === parseInt(req.params.marca));
-    if (car) {
-      res.json(car);
+    const marcas = cars.find(c => c.marca === parseInt(req.params.marca));
+    if (marcas) {
+      res.json(marcas);
     } else {
       res.status(404).json({ error: "Marca no encontrada" });
     }
   });
 
   app.get("/cars/:traccion", (req, res) => {
-    const car = cars.find(c => c.id === parseInt(req.params.traccion));
-    if (car) {
-      res.json(car);
+    const tracciones = cars.find(c => c.traccion === parseInt(req.params.traccion));
+    if (tracciones) {
+      res.json(tracciones);
     } else {
       res.status(404).json({ error: "Tracción no encontrada" });
     }
   });
 
   app.get("/cars/:equipo", (req, res) => {
-    const car = cars.find(c => c.id === parseInt(req.params.equipo));
-    if (car) {
-      res.json(car);
+    const equipos = cars.find(c => c.equipo === parseInt(req.params.equipo));
+    if (equipos) {
+      res.json(equipos);
     } else {
       res.status(404).json({ error: "Equipo no encontrado" });
     }
