@@ -81,7 +81,7 @@ const coches = [
         modelo: "Skyline GT-R R32",
         piloto: "Eikichi Shimamura",
         traccion: "RWD",
-        imagen: "https://static.wikia.nocookie.net/initiald/images/a/a3/R32_Crystal_White_AS0.png/revision/latest?cb=20200701165923",
+        imagen: "https://static.wikia.nocookie.net/initiald/images/a/a3/R32_Crystal_White_AS0.png",
         equipo:["Hakone Thunder Soldiers"],
         descripcion:"El R32 fue una fuerza dominante en los circuitos de toda Asia, lo que le valió el sobrenombre de Godzilla. Este R32 cuenta con un motor biturbo RB26DETT, parachoques NISMO N1 y muchas otras modificaciones. Se desconoce la potencia real del coche, pero un modelo de serie puede alcanzar los 280CV"      
     },
@@ -91,7 +91,7 @@ const coches = [
         modelo: "Corolla Levin SR (AE85)",
         piloto: "Itsuki Takeuchi",
         traccion: "RWD",
-        imagen: "https://static.wikia.nocookie.net/initiald/images/b/b4/AE85_Levin_White_AS0.png/revision/latest?cb=20200606225529",
+        imagen: "https://static.wikia.nocookie.net/initiald/images/b/b4/AE85_Levin_White_AS0.png",
         equipo:["Akina SpeedStars"],
         descripcion:"El Toyota Corolla Levin SR es una versión deportiva del legendario Corolla, conocida por su diseño ligero y su gran respuesta en carreteras sinuosas. Equipado con un motor 1.6L 2T-G de doble carburador, este clásico japonés ofrecía una potencia aproximada de 115 CV, lo que, combinado con su tracción trasera, lo convertía en una opción popular para los entusiastas del manejo deportivo. Su carrocería coupé y su peso reducido le otorgaban una gran agilidad, convirtiéndolo en un pionero en el mundo del drifting y las carreras callejeras."
     },
