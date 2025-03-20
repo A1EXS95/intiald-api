@@ -562,25 +562,28 @@ const coches = [
 // });
 
 
-  app.get("/api/coches", (req, res) => {
+app.get("/api/coches", (req, res) => {
     const { marca, equipo, traccion } = req.query;
 
     let cochesFiltrados = coches;
 
     if (marca) {
-        cochesFiltrados = cochesFiltrados.filter(coche => coche.marca.toLowerCase() === marca.toLowerCase());
+        const marcas = marca.split(",").map(m => m.toLowerCase().trim());
+        cochesFiltrados = cochesFiltrados.filter(coche => marcas.includes(coche.marca.toLowerCase()));
     }
     
     if (equipo) {
-        cochesFiltrados = cochesFiltrados.filter(coche => coche.equipo.some(e => e.toLowerCase() === equipo.toLowerCase()));
+        const equipos = equipo.split(",").map(e => e.toLowerCase().trim());
+        cochesFiltrados = cochesFiltrados.filter(coche => coche.equipo.some(e => equipos.includes(e.toLowerCase())));
     }
 
     if (traccion) {
-        cochesFiltrados = cochesFiltrados.filter(coche => coche.traccion.toLowerCase() === traccion.toLowerCase());
+        const tracciones = traccion.split(",").map(t => t.toLowerCase().trim());
+        cochesFiltrados = cochesFiltrados.filter(coche => tracciones.includes(coche.traccion.toLowerCase()));
     }
 
     res.json(cochesFiltrados);
 });
 
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => console.log(`API corriendo en http://localhost:${PORT}`));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`API corriendo en http://localhost:${PORT}`));
