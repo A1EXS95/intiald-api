@@ -118,7 +118,7 @@ const coches = [
     {
         id: 5,
         marca: "Nissan",
-        modelo: "Silvia s14",
+        modelo: "Silvia S14",
         piloto: "Kenta Nakamura",
         traccion: "RWD",
         imagen: "https://static.wikia.nocookie.net/initiald/images/0/0a/S14_Orange_AS8.png",
@@ -128,7 +128,7 @@ const coches = [
     {
         id: 6,
         marca: "Nissan",
-        modelo: "Silvia s13",
+        modelo: "Silvia S13",
         piloto: "Koichiro Iketani",
         traccion: "RWD",
         imagen: "https://static.wikia.nocookie.net/initiald/images/0/0a/S13_Lime_Green_Two_Tone_AS0.png",
@@ -168,7 +168,7 @@ const coches = [
     {
         id: 10,
         marca: "Nissan",
-        modelo: "Silvia s13",
+        modelo: "Silvia S13",
         piloto: "Takeshi Nakazato",
         traccion: "RWD",
         imagen: "https://static.wikia.nocookie.net/initiald/images/f/f7/S13_Super_Black_AS8.png",
@@ -188,7 +188,7 @@ const coches = [
     {
         id: 12,
         marca: "Toyota",
-        modelo: "Spriter Trueno GT_APEX (AE86)",
+        modelo: "Spriter Trueno GT-APEX (AE86)",
         piloto: "Takumi Fujiwara",
         traccion: "RWD",
         imagen: "https://static.wikia.nocookie.net/initiald/images/5/54/High-Tech_Two_Tone_Trueno_3Door_AS0.png",        
@@ -232,7 +232,7 @@ const coches = [
         piloto: "Ken Kogashiwa",
         traccion: "RWD",
         imagen: "https://static.wikia.nocookie.net/initiald/images/5/5e/MR2_Strong_Blue_Metallic_AS0.png",        
-        equipo:[""],
+        equipo:["No participa en ningún equipo."],
         descripcion:"El Toyota MR2 G-Limited (SW20) es un deportivo compacto con un diseño de motor central que ofrece una experiencia de conducción única y equilibrada. Equipado con un motor 3S-GE de 2.0 litros que genera alrededor de 165 CV, este modelo es conocido por su excelente manejo y agilidad, especialmente en carreteras de montaña y curvas cerradas. Su tracción trasera y su distribución de peso, gracias al motor central, le brindan una estabilidad sobresaliente y una capacidad de respuesta impresionante. La versión G-Limited ofrece detalles como llantas más ligeras y una suspensión más deportiva, que lo hacen aún más apto para el desempeño en carreras y maniobras de drifting."
     },
     {
@@ -242,7 +242,7 @@ const coches = [
         piloto: "Miki",
         traccion: "RWD",
         imagen: "https://static.wikia.nocookie.net/initiald/images/0/00/Celica_Silver_Metallic_AS0.png",        
-        equipo:[""],
+        equipo:["No participa en ningún equipo."],
         descripcion:"El Toyota Celica GT-Four es un modelo legendario que representa lo mejor de la ingeniería deportiva japonesa, especialmente en el mundo del rally. Equipado con un motor 3S-GTE de 2.0 litros turboalimentado, produce aproximadamente 200-250 CV dependiendo de la versión, lo que le otorga una gran potencia para enfrentarse a terrenos difíciles y tramos de alta velocidad. La suspensión de rally lo convierte en un coche extremadamente estable y ágil, incluso en condiciones de conducción extremas. El Celica GT-Four es famoso por su éxito en el Campeonato Mundial de Rally (WRC) durante los años 90, lo que lo convierte en un coche muy respetado en la cultura automovilística."
     },
     {
@@ -272,7 +272,7 @@ const coches = [
         piloto: "Bunta Fujiwara",
         traccion: "4WD",
         imagen: "https://static.wikia.nocookie.net/initiald/images/e/e9/GC8_Sonic_Blue_Mica_AS0.png",        
-        equipo:[""],
+        equipo:["No participa en ningún equipo."],
         descripcion:"El Subaru Impreza WRX STI Coupe Type R Version V es una versión especial y altamente apreciada de la línea Impreza, conocida por su rendimiento en rally. Equipado con un motor EJ20 de 2.0 litros turboalimentado, genera alrededor de 280 CV, lo que le otorga una gran potencia para enfrentarse a competidores en todo tipo de terrenos. Su tracción en las cuatro ruedas, combinada con una suspensión deportiva y un chasis robusto, le otorgan una gran estabilidad en curvas y una capacidad de aceleración impresionante en cualquier condición."
     },
     {
