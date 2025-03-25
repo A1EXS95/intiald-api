@@ -519,47 +519,6 @@ const coches = [
    *         description: Coche no encontrado
    */
 
-//   app.get("/coches/:id", (req, res) => {
-//     const id = cars.find(c => c.id === parseInt(req.params.id));
-//     if (id) {
-//       res.json(id);
-//     } else {
-//       res.status(404).json({ error: "Coche no encontrado" });
-//     }
-//   });
-  
-//   app.get("/coches/:marca?", (req, res) => {
-//     const { marca } = req.params;
-//     const cochesFiltrados = coches.filter(coche => coche.marca.toLowerCase() === marca.toLowerCase());
-
-//     if (cochesFiltrados.length > 0) {
-//         res.json(cochesFiltrados);
-//     } else {
-//         res.status(404).json({ error: "No se encontraron coches con esa marca" });
-//     }
-// });
-
-// app.get("/coches/:equipo?", (req, res) => {
-//     const { equipo } = req.params;
-//     const cochesFiltrados = coches.filter(coche => coche.equipo.some(e => e.toLowerCase() === equipo.toLowerCase()));
-
-//     if (cochesFiltrados.length > 0) {
-//         res.json(cochesFiltrados);
-//     } else {
-//         res.status(404).json({ error: "No se encontraron coches en ese equipo" });
-//     }
-// });
-
-// app.get("/coches/:traccion?", (req, res) => {
-//     const { traccion } = req.params;
-//     const cochesFiltrados = coches.filter(coche => coche.traccion.toLowerCase() === traccion.toLowerCase());
-
-//     if (cochesFiltrados.length > 0) {
-//         res.json(cochesFiltrados);
-//     } else {
-//         res.status(404).json({ error: "No se encontraron coches con esa tracción" });
-//     }
-// });
 
 
 app.get("/api/coches", (req, res) => {
@@ -584,6 +543,293 @@ app.get("/api/coches", (req, res) => {
 
     res.json(cochesFiltrados);
 });
+
+
+
+
+const tramos = [
+    {
+        id: 1,
+        nombre: "Monte Akina",
+        nombre_japones: "秋名山",
+        longitud: "8.0 km",
+        tiempo_media: "12 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+        puntos_clave:"5 horquillas consecutivas, cunetas, rectas largas, terraplenes pronunciados, abundantes oportunidades de adelantamiento",
+        descripcion:"Akina, enclavada en Gunma, es una pista venerada que atrae a pilotos de todo el mundo. Con sus características curvas cerradas, cambios de elevación y vistas impresionantes, personifica la esencia de las carreras de paso de montaña. Con 8 kilómetros de longitud, esta icónica pista combina caucho y asfalto, enmarcada por imponentes montañas. Su legado y sus batallas han convertido a Akina en un circuito sagrado. Ya sea buscando la adrenalina de dominar sus curvas o simplemente disfrutando de su encanto, Akina ofrece una experiencia de touge inolvidable donde las leyendas prosperan y la velocidad habla por sí sola.",
+        equipo_local:"Akina SpeedStars",
+        prefectura:["Gunma"] 
+    },
+    {
+        id: 2,
+        nombre: "Monte Akagi",
+        nombre_japones: "赤城山",
+        longitud: "5.0 km",
+        tiempo_media: "9 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akagi.png",
+        puntos_clave:"Esquinas empinadas, vistas panorámicas",
+        descripcion:"Akagi es un legendario paso de montaña enclavado en la prefectura de Gunma, Japón. Esta icónica carretera de montaña atrae a aficionados al automovilismo de todas partes, ofreciendo una experiencia emocionante e inolvidable. Con sus desafiantes curvas cerradas, amplias curvas y pintorescos alrededores, Akagi muestra la verdadera esencia de las carreras de touge. Al recorrer la carretera de aproximadamente 5 kilómetros, los conductores disfrutan de paisajes impresionantes y vistas panorámicas de las montañas circundantes. El rico patrimonio automovilístico de Akagi y su reputación como destino imprescindible para los aficionados al automovilismo han consolidado su prestigio entre los aficionados. Ya sea por la adrenalina de sus curvas o por su cautivadora belleza natural, Akagi promete una emocionante experiencia de touge para quienes buscan la aventura al volante definitiva.",
+        equipo_local:"Akagi RedSuns",
+        prefectura:["Gunma"] 
+    },
+    {
+        id: 3,
+        nombre: "Paso de Usui",
+        nombre_japones: "碓氷峠",
+        longitud: "4.6 km",
+        tiempo_media: "7 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/usui.png",
+        puntos_clave:"C-121, Puente Megane-bashi",
+        descripcion:"El Paso Usui, también conocido como Usui Touge, es un legendario paso de montaña que conecta las prefecturas de Gunma y Nagano. Con sus curvas cerradas, sus horquillas cerradas y sus pronunciadas pendientes, el Paso de Usui ofrece una ruta emocionante y desafiante para los amantes del touge. Este emblemático tramo de carretera ofrece a los conductores la oportunidad de poner a prueba sus habilidades y experimentar la emoción de conquistar su exigente terreno. Famoso por sus impresionantes paisajes, el Paso de Usui atrae a conductores de todas partes, en busca de la emoción y la aventura que ofrece este legendario paso.",
+        equipo_local:"Impact Blue",
+        prefectura:["Gunma", "Nagano"] 
+    },
+    {
+        id: 4,
+        nombre: "Monte Myogi",
+        nombre_japones: "妙義山",
+        longitud: "5.0 km",
+        tiempo_media: "8 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/myogi.png",
+        puntos_clave:"Santuario Nakanotake, largas rectas, curvas de radio bajo, picos abruptos, vistas a la montaña",
+        descripcion:"Enclavado en el pintoresco paisaje de Gunma, Myogi es un paraíso para los conductores, conocido por sus diversas características. El recorrido lleva a los conductores al venerado Santuario Nakanotake, un antiguo guardián de la carretera. Las largas rectas ofrecen momentos de aceleración, seguidos de una conducción calculada en curvas de radio reducido, poniendo a prueba la habilidad y el control. A medida que avanza la carretera, las cimas abruptas desafían tanto al vehículo como a los nervios, añadiendo un toque extra de emoción. A lo largo del trayecto, las vistas panorámicas de las montañas ofrecen un telón de fondo impresionante, inspirando asombro en cada curva. La combinación única de elementos de Myogi promete una experiencia de conducción emocionante que combina precisión, potencia y la majestuosidad de la naturaleza.",
+        equipo_local:"NightKids",
+        prefectura:["Gunma"] 
+    },
+    {
+        id: 5,
+        nombre: "Paso de Tsuchisaka",
+        nombre_japones: "土坂峠",
+        longitud: "6.7 km",
+        tiempo_media: "10 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/tsuchisaka.png",
+        puntos_clave:"Túnel de Tsuchisaka, largas rectas cuesta arriba, descenso técnico",
+        descripcion:"Enclavada en los encantadores paisajes de Gunma y Saitama, Tsuchisaka se presenta como una emocionante aventura al volante, definida por sus atributos únicos. El viaje comienza con un estimulante tramo cuesta arriba, que marca el ritmo de la aventura que se avecina. El histórico Túnel de Tsuchisaka se alza como un centinela del tiempo, ofreciendo un paso al corazón de la ruta. Una sucesión de largas rectas invita a momentos de aceleración, seguidos de un descenso meticulosamente orquestado a través de una sección técnica de descenso después del túnel. A medida que la carretera navega entre dos prefecturas, revela una mezcla de paisajes cautivadores que embellecen cada curva. La fusión de desafíos cuesta arriba, tramos de alta velocidad y descensos técnicos de Tsuchisaka garantiza una experiencia que despierta los sentidos y redefine la esencia de la emoción de conducir.",
+        equipo_local:"Tsuchisaka Lancer Evolution Team",
+        prefectura:["Gunma", "Saitama"] 
+    },
+    {
+        id: 6,
+        nombre: "Enna Skyline",
+        nombre_japones: "エンナのスカイライン",
+        longitud: "5.6 km",
+        tiempo_media: "9 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/tsuchisaka.png",
+        puntos_clave:"Curvas técnicas, curvas ciegas, cambios de elevación pronunciados, riesgo de caída de rocas",
+        descripcion:"Enna Skyline se erige como un paraíso para la conducción, un reino donde el asfalto y la naturaleza convergen en perfecta armonía. Con su sinuoso trazado y sus curvas técnicas, esta carretera de montaña ofrece una experiencia desafiante y emocionante. Ascendiendo a alturas imponentes, recompensa a los conductores con vistas panorámicas que se extienden por todo el paisaje. A medida que los vehículos recorren sus curvas, Enna Skyline se convierte en un campo de pruebas de habilidad y precisión. Cada curva es una pincelada en el lienzo del arte de la conducción. Más allá de la emoción, es un viaje a través de un mundo de belleza, donde la carretera y la naturaleza se entrelazan para crear una sinfonía inolvidable de movimiento y gracia.",
+        equipo_local:"Toudou School",
+        prefectura:["Tochigi"] 
+    },
+    {
+        id: 7,
+        nombre: "Happogahara",
+        nombre_japones: "八方ヶ原",
+        longitud: "5.8 km",
+        tiempo_media: "10 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/happogahara.png",
+        puntos_clave:"Amplia gama de curvas, elevaciones desde planas hasta empinadas, ancho de carretera variable, ubicación remota, túnel Yuhi, cascada serena y vistas al bosque.",
+        descripcion:"Happogahara se erige como la cumbre de la perfección del touge, fusionando ingeniosamente los elementos más refinados del diverso repertorio touge de Japón. Es una convergencia armoniosa de serenas vistas de bosques y cascadas, enclavada en la tranquilidad de un lugar remoto. El terreno versátil de la carretera, que pasa de amplias extensiones a estrechos senderos y de tramos llanos a empinadas elevaciones, ofrece una conducción dinámica y atractiva. Su trazado, una intrincada danza de curvas de 180 grados, horquillas cerradas y curvas ciegas, crea un ritmo cautivador. Happogahara es más que una ruta; es un testimonio del arte del touge, capturando la esencia misma de un viaje extraordinario en su fluidez y diversidad.",
+        equipo_local:"Toudou School",
+        prefectura:["Tochigi"] 
+    },
+    {
+        id: 8,
+        nombre: "Momiji Line",
+        nombre_japones: "もみじライン",
+        longitud: "10.3 km",
+        tiempo_media: "17 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/momiji.png",
+        puntos_clave:"Canalones descubiertos, pendientes pronunciadas, curvas cerradas, hermosas vistas otoñales, vistas a cascadas",
+        descripcion:"Momiji Line, una ruta encantadora, pinta con gran detalle los matices cambiantes de las estaciones. Esta sinuosa carretera, adornada con curvas cerradas, pendientes pronunciadas y cunetas descubiertas, es más que un sendero: es un lienzo de la naturaleza. Cada curva revela un arte tan hermoso como las hojas de momiji que le dan nombre. Las vibrantes vistas otoñales reflejan la esencia misma de la estación, mientras que los destellos de cascadas se suman al espectáculo. Recorrer Momiji Line no es solo un paseo en coche, es un recorrido por la obra maestra de la naturaleza, un viaje inmersivo que captura la esencia de la belleza siempre cambiante de Japón.",
+        equipo_local:"Seven Star Leaf",
+        prefectura:["Tochigi"] 
+    },
+    {
+        id: 9,
+        nombre: "Irohazaka (descenso)",
+        nombre_japones: "いろは坂",
+        longitud: "5.7 km",
+        tiempo_media: "12 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/irohazaka.png",
+        puntos_clave:"48 horquillas en total, 27 horquillas en descenso, rutas de un solo sentido empinadas y estrechas, paisaje pintoresco, curvas señalizadas, 33.ª curva, salto de Irohazaka",
+        descripcion:"Irohazaka, venerada como la icónica pista de Iroha, se alza como un paso de montaña de desafío sin igual. Cuenta con un diseño extraordinario: dos rutas empinadas y estrechas de un solo sentido, una cuesta arriba y otra cuesta abajo. El nombre 'Irohazaka' rinde homenaje a sus 48 curvas cerradas, haciendo referencia a las tres primeras de las 48 sílabas del alfabeto japonés tradicional. Las implacables curvas de Irohazaka y los rápidos cambios de elevación la han convertido en un icono de las carreras de touge, una aventura donde dominar la carretera es la clave del triunfo.",
+        equipo_local:"Team Emperor",
+        prefectura:["Tochigi"]  
+    },
+    {
+        id: 10,
+        nombre: "Tsukuba",
+        nombre_japones: "筑波 (フルーツライン)",
+        longitud: "3.0 km",
+        tiempo_media: "5 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/tsukuba.png",
+        puntos_clave:"Varias horquillas, trazado técnico y estrecho, arcenes altos, cunetas descubiertas con vegetación",
+        descripcion:"Distinguida por sus atributos únicos, la Fruits Line del Monte Tsukuba ofrece una experiencia de conducción cautivadora. Una serie de numerosas curvas cerradas exige precisión, mientras que el trazado técnico y estrecho de la carretera presenta un desafío que distingue a los más expertos del resto. La ruta está bordeada por arcenes elevados, creando un entorno envolvente que realza la experiencia de conducción. A lo largo de la carretera, las cunetas descubiertas y con vegetación realzan su carácter único. La Fruits Line de Tsukuba es un recorrido cautivador que combina destreza técnica, curvas intensas y un entorno inmersivo en una experiencia de conducción inolvidable.",
+        equipo_local:"Purple Shadow",
+        prefectura:["Ibaraki"] 
+    },
+    {
+        id: 11,
+        nombre: "Paso de Maze",
+        nombre_japones: "間瀬峠",
+        longitud: "3.2 km",
+        tiempo_media: "13 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/maze.png",
+        puntos_clave:"Letrero de deslizamiento de tierra, tapas de drenaje metálicas, trazado de carretera estrecho y accidentado.",
+        descripcion:"Al embarcarse en un viaje a través de la pintoresca extensión de Saitama, el Paso de Maze ofrece una invitación única. Este paso de montaña presenta un camino estrecho y accidentado con un trazado convencional que favorece a los coches pequeños. El desafío de la carretera se ve acentuado por una antigua señal de alerta de deslizamientos de tierra, que entrelaza la historia con el recorrido. A medida que los conductores recorren sus curvas, surge una intrincada danza entre la destreza y el terreno. El paso ofrece una inmersión única, donde el pulso de la conducción resuena en cada curva. El Paso de Maze invita a los conductores a sumergirse en su carácter, combinando historia, desafío y la emoción de conducir en una experiencia inolvidable.",
+        equipo_local:"Alianza del Norte de Saitama",
+        prefectura:["Saitama"] 
+    },
+    {
+        id: 12,
+        nombre: "Paso de Sadamine",
+        nombre_japones: "定峰峠",
+        longitud: "7.5 km",
+        tiempo_media: "14 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/sadamine.png",
+        puntos_clave:"Casa de té de Touge, superficie rugosa/irregular",
+        descripcion:"Sadamine, una huella de distinción, invita a los conductores a un viaje auténtico y cautivador. La Casa de Té de la Touge es un hito y un testimonio de la historia de la carretera. Su superficie irregular y accidentada desafía a los conductores, exigiendo una combinación de delicadeza y control. Al sortear sus curvas, la carretera se convierte en un escenario dinámico donde la habilidad se funde con el terreno. Sadamine captura la esencia pura de la conducción, ofreciendo una experiencia que resuena con cada bache y curva. Es una aventura que entrelaza la tradición, las condiciones de la carretera y la emoción de conducir en una historia automovilística sin adornos.",
+        equipo_local:"Alianza del Norte de Saitama",
+        prefectura:["Saitama"] 
+    },
+    {
+        id: 13,
+        nombre: "Paso de Shomaru",
+        nombre_japones: "正丸峠",
+        longitud: "5.6 km",
+        tiempo_media: "11 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/shomaru.png",
+        puntos_clave:"Casa de té Okumura, esquinas estrechas y ciegas, subidas y bajadas pronunciadas alternadas",
+        descripcion:"El Paso de Shomaru, una joya del automovilismo, invita a los conductores a conquistar su desafiante terreno. Conocido por su estrecho sendero y sus curvas ciegas, este viaje de touge exige una concentración inquebrantable. La icónica Casa de Té Okumura es testigo de cada ascenso y descenso. A medida que los conductores sortean curvas cerradas, alternando subidas y bajadas, la carretera se convierte en un intenso ballet de control y precisión. El Paso de Shomaru encapsula la esencia de las carreras de touge, donde cada curva es un testimonio de habilidad. Es un encuentro fascinante que entrelaza historia, exigencias técnicas y la emoción de la conducción en un inolvidable tapiz automovilístico.",
+        equipo_local:"Ningun equipo reina este tramo.",
+        prefectura:["Saitama"] 
+    },
+    {
+        id: 14,
+        nombre: "Paso de Yabitsu",
+        nombre_japones: "ヤビツ峠",
+        longitud: "7.2 km",
+        tiempo_media: "14 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/yabitsu.png",
+        puntos_clave:"Convergencia abrupta de carriles, curvas estrechas y ciegas, curvas cerradas, mirador de Nanohana, denso bosque circundante",
+        descripcion:"El paso de Yabitsu revela una cautivadora carretera de touge con características distintivas. Cabe destacar que la carretera presenta múltiples puntos de unión donde dos carriles se convierten repentinamente en uno, lo que requiere maniobras estratégicas. La estrecha carretera, con curvas ciegas y cerradas, exige una conducción precisa. A lo largo del camino, la plataforma de observación Nanohana ofrece vistas panorámicas tanto dentro como fuera del denso bosque que rodea el touge. Las características únicas de Yabitsu Touge crean una experiencia de conducción definida por sus exigencias técnicas y un entorno natural envolvente.",
+        equipo_local:"Team 246",
+        prefectura:["Kanagawa"] 
+    },
+    {
+        id: 15,
+        nombre: "Paso de Nagao",
+        nombre_japones: "長尾峠",
+        longitud: "7.1 km",
+        tiempo_media: "11 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/nagao.png",
+        puntos_clave:"Equilibrio entre secciones anchas y estrechas, canaletas descubiertas, casa de té Fujimi, vistas del monte Fuji",
+        descripcion:"Nagao, que se extiende por las prefecturas de Kanagawa y Shizuoka, es una joya del automovilismo, famosa por sus cualidades distintivas. Sus amplias y sinuosas carreteras ofrecen un escenario ideal tanto para el agarre como para el drifting, complementadas con una combinación de tramos estrechos y anchos. Las curvas técnicas exigen una conducción hábil, lo que supone un desafío dinámico para los entusiastas. Con una longitud de touge óptima, Nagao encapsula la esencia de una conducción emocionante. El nombre 'Nagao' proviene de las palabras japonesas 'naga', que significa 'largo', y 'o', que representa 'pendiente' o 'cola', reflejando fielmente su trazado extenso y ondulado.",
+        equipo_local:"Katagiri",
+        prefectura:["Kanagawa", "Shizuoka"] 
+    },
+    {
+        id: 16,
+        nombre: "Nanamagari",
+        nombre_japones: "七曲り",
+        longitud: "4.2 km",
+        tiempo_media: "8 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/nanamagari.png",
+        puntos_clave:"12 horquillas consecutivas, pendiente pronunciada, ubicación remota, vistas del Monte Futago de dos picos",
+        descripcion:"Nanamagari, una famosa ruta para conducir, combina desafíos técnicos con impresionantes vistas. A pesar de que su nombre significa 'siete curvas' en japonés, cuenta con doce horquillas consecutivas que definen su singularidad. Las pronunciadas subidas y bajadas de la carretera requieren una conducción experta. Durante el recorrido, podrá disfrutar de las vistas del Monte Futago, la montaña de dos picos. Antaño un lugar predilecto para los entusiastas del drifting, Nanamagari personificó el encanto de las carreras de drifting, guiado por una práctica rítmica: ascender en drifting, mantenerse en el carril y descender con gracia. Forma parte de la histórica Old Tōkaidō Road, que se extiende entre Hakone y Odawara, y ofrece tanto emoción al volante como belleza natural.",
+        equipo_local:"Team Spiral",
+        prefectura:["Kanagawa"] 
+    },
+    {
+        id: 17,
+        nombre: "Autopista de Hakone",
+        nombre_japones: "箱根ターンパイク",
+        longitud: "12.0 km",
+        tiempo_media: "11 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/hakone.png",
+        puntos_clave:"Largas curvas, vistas del monte Fuji y la bahía de Sagami",
+        descripcion:"La autopista de peaje de Hakone es una famosa carretera de montaña ubicada en la región de Hakone, Japón. Esta icónica autopista ofrece a los conductores una emocionante experiencia paisajística al recorrer sus curvas. Con sus cautivadoras curvas, impresionantes panoramas y espectaculares vistas del Monte Fuji en días despejados, la autopista de peaje de Hakone se ha convertido en un destino predilecto tanto para los entusiastas de las autopistas como para los amantes de la naturaleza. La carretera de aproximadamente 12 kilómetros serpentea a través de los paisajes más pintorescos de la región, ofreciendo una inolvidable aventura al volante. Ya sea por la emoción de la carretera o por la fascinante belleza natural, la autopista de peaje de Hakone promete una experiencia inolvidable para quienes buscan un viaje extraordinario.",
+        equipo_local:"Ningun equipo reina este tramo.",
+        prefectura:["Kanagawa"] 
+    },
+    {
+        id: 18,
+        nombre: "Tsubaki Line",
+        nombre_japones: "椿ライン",
+        longitud: "13.1 km",
+        tiempo_media: "20 min",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/tsubaki.png",
+        puntos_clave:"Combinación de rectas y curvas técnicas, cambios de elevación, canaletas descubiertas, mirador de Tsubakidai, vistas del área de Fuji-Hakone",
+        descripcion:"Tsubaki Line destaca por ser una carretera dinámica y dinámica, con una cautivadora fusión de elementos. Su trazado combina a la perfección rectas y curvas técnicas, garantizando una conducción emocionante. Los cambios de elevación añaden un nivel extra de emoción, exigiendo precisión en el control. Mientras conduces, las cunetas descubiertas de la carretera te mantienen alerta. El Mirador Tsubakidai ofrece una pausa escénica, revelando vistas panorámicas de la zona de Fuji-Hakone. Con su combinación de desafíos y paisajes impresionantes, Tsubaki Line promete una experiencia de conducción inolvidable para los entusiastas que buscan emociones fuertes y belleza natural.",
+        equipo_local:"Sidewinder",
+        prefectura:["Kanagawa"] 
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`API corriendo en http://localhost:${PORT}`));
