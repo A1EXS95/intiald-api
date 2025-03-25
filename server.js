@@ -767,25 +767,25 @@ const tramos = [
 ]
 
 
-app.get("/api/tramos", (req, res) => {
-    const { nombre, nombre_japones, longitud, tiempo_media, imagen, puntos_clave, descripcion, equipo_local, prefectura } = req.query;
+// app.get("/api/tramos", (req, res) => {
+//     const { nombre, nombre_japones, longitud, tiempo_media, imagen, puntos_clave, descripcion, equipo_local, prefectura } = req.query;
 
-    const pistasFlitradas = coches.filter(coche => {
-        return (
-            (!nombre || coche.nombre.toLowerCase().includes(nombre.toLowerCase())) &&
-            (!nombre_japones || coche.nombre_japones.toLowerCase().includes(nombre_japones.toLowerCase())) &&
-            (!longitud || coche.longitud.toLowerCase().includes(longitud.toLowerCase())) &&
-            (!tiempo_media || coche.tiempo_media.toLowerCase().includes(tiempo_media.toLowerCase())) &&
-            (!imagen || coche.imagen.toLowerCase().includes(imagen.toLowerCase())) &&
-            (!puntos_clave || coche.puntos_clave.toLowerCase().includes(puntos_clave.toLowerCase())) &&
-            (!descripcion || coche.descripcion.toLowerCase().includes(descripcion.toLowerCase())) &&
-            (!equipo_local || coche.equipo_local.toLowerCase().includes(equipo_local.toLowerCase())) &&
-            (!prefectura || coche.prefectura.includes(prefectura))
-        );
-    });
+//     const pistasFlitradas = coches.filter(coche => {
+//         return (
+//             (!nombre || coche.nombre.toLowerCase().includes(nombre.toLowerCase())) &&
+//             (!nombre_japones || coche.nombre_japones.toLowerCase().includes(nombre_japones.toLowerCase())) &&
+//             (!longitud || coche.longitud.toLowerCase().includes(longitud.toLowerCase())) &&
+//             (!tiempo_media || coche.tiempo_media.toLowerCase().includes(tiempo_media.toLowerCase())) &&
+//             (!imagen || coche.imagen.toLowerCase().includes(imagen.toLowerCase())) &&
+//             (!puntos_clave || coche.puntos_clave.toLowerCase().includes(puntos_clave.toLowerCase())) &&
+//             (!descripcion || coche.descripcion.toLowerCase().includes(descripcion.toLowerCase())) &&
+//             (!equipo_local || coche.equipo_local.toLowerCase().includes(equipo_local.toLowerCase())) &&
+//             (!prefectura || coche.prefectura.includes(prefectura))
+//         );
+//     });
 
-    res.json(listasFiltradas);
-});
+//     res.json(listasFiltradas);
+// });
 
 
 
