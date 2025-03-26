@@ -770,28 +770,46 @@ const tramos = [
 app.get("/api/tramos", (req, res) => {
     const { nombre, nombre_japones, longitud, tiempo_media, imagen, puntos_clave, descripcion, equipo_local, prefectura } = req.query;
 
-    const pistasFiltradas = tramos.filter(tramo => {
-        return (
-            (!nombre || tramo.nombre.toLowerCase().includes(nombre.toLowerCase())) &&
-            (!nombre_japones || tramo.nombre_japones.toLowerCase().includes(nombre_japones.toLowerCase())) &&
-            (!longitud || tramo.longitud.toLowerCase().includes(longitud.toLowerCase())) &&
-            (!tiempo_media || tramo.tiempo_media.toLowerCase().includes(tiempo_media.toLowerCase())) &&
-            (!imagen || tramo.imagen.toLowerCase().includes(imagen.toLowerCase())) &&
-            (!puntos_clave || tramo.puntos_clave.toLowerCase().includes(puntos_clave.toLowerCase())) &&
-            (!descripcion || tramo.descripcion.toLowerCase().includes(descripcion.toLowerCase())) &&
-            (!equipo_local || tramo.equipo_local.toLowerCase().includes(equipo_local.toLowerCase())) &&
-            (!prefectura || tramo.prefectura.includes(prefectura))
-        );
-    });
+    let pistasFiltradas = tramos;
+    if (nombre) {
+        const nombre = nombre.split(", ").map(n => n.toLowerCase().trim());
+        pistasFiltradas = pistasFiltradas.filter(pista => pista.nombre.toLowerCase().includes(nombre.toLowerCase()));
+    }
+    if (nombre_japones) {
+        const nombre_japones = nombre_japones.split(", ").map(n => n.toLowerCase().trim());
+        pistasFiltradas = pistasFiltradas.filter(pista => pista.nombre_japones.toLowerCase().includes(nombre_japones.toLowerCase()));
+    }
+    if (longitud) {
+        const longitud = longitud.split(", ").map(l => l.toLowerCase().trim());
+        pistasFiltradas = pistasFiltradas.filter(pista => pista.longitud.toLowerCase().includes(longitud.toLowerCase()));
+    }
+    if (tiempo_media) {
+        const tiempo_media = tiempo_media.split(", ").map(t => t.toLowerCase().trim());
+        pistasFiltradas = pistasFiltradas.filter(pista => pista.tiempo_media.toLowerCase().includes(tiempo_media.toLowerCase()));
+    }
+    if (imagen) {
+        const imagen = imagen.split(", ").map(i => i.toLowerCase().trim());
+        pistasFiltradas = pistasFiltradas.filter(pista => pista.imagen.toLowerCase().includes(imagen.toLowerCase()));
+    }
+    if (puntos_clave) {
+        const puntos_clave = puntos_clave.split(", ").map(p => p.toLowerCase().trim());
+        pistasFiltradas = pistasFiltradas.filter(pista => pista.puntos_clave.toLowerCase().includes(puntos_clave.toLowerCase()));
+    }
+    if (descripcion) {
+        const descripcion = descripcion.split(", ").map(d => d.toLowerCase().trim());
+        pistasFiltradas = pistasFiltradas.filter(pista => pista.descripcion.toLowerCase().includes(descripcion.toLowerCase()));
+    }
+    if (equipo_local) {
+        const equipo_local = equipo_local.split(", ").map(e => e.toLowerCase().trim());
+        pistasFiltradas = pistasFiltradas.filter(pista => pista.equipo_local.toLowerCase().includes(equipo_local.toLowerCase()));
+    }
+    if (prefectura) {
+        const prefectura = prefectura.split(", ").map(p => p.toLowerCase().trim());
+        pistasFiltradas = pistasFiltradas.filter(pista => pista.prefectura.some(p => prefectura.includes(p.toLowerCase())));
+    }
 
     res.json(pistasFiltradas);
 });
-
-
-
-
-
-
 
 
 
