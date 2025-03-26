@@ -770,22 +770,23 @@ const tramos = [
 app.get("/api/tramos", (req, res) => {
     const { nombre, nombre_japones, longitud, tiempo_media, imagen, puntos_clave, descripcion, equipo_local, prefectura } = req.query;
 
-    const pistasFiltradas = coches.filter(coche => {
+    const pistasFiltradas = tramos.filter(tramo => {
         return (
-            (!nombre || coche.nombre.toLowerCase().includes(nombre.toLowerCase())) &&
-            (!nombre_japones || coche.nombre_japones.toLowerCase().includes(nombre_japones.toLowerCase())) &&
-            (!longitud || coche.longitud.toLowerCase().includes(longitud.toLowerCase())) &&
-            (!tiempo_media || coche.tiempo_media.toLowerCase().includes(tiempo_media.toLowerCase())) &&
-            (!imagen || coche.imagen.toLowerCase().includes(imagen.toLowerCase())) &&
-            (!puntos_clave || coche.puntos_clave.toLowerCase().includes(puntos_clave.toLowerCase())) &&
-            (!descripcion || coche.descripcion.toLowerCase().includes(descripcion.toLowerCase())) &&
-            (!equipo_local || coche.equipo_local.toLowerCase().includes(equipo_local.toLowerCase())) &&
-            (!prefectura || coche.prefectura.includes(prefectura))
+            (!nombre || tramo.nombre.toLowerCase().includes(nombre.toLowerCase())) &&
+            (!nombre_japones || tramo.nombre_japones.toLowerCase().includes(nombre_japones.toLowerCase())) &&
+            (!longitud || tramo.longitud.toLowerCase().includes(longitud.toLowerCase())) &&
+            (!tiempo_media || tramo.tiempo_media.toLowerCase().includes(tiempo_media.toLowerCase())) &&
+            (!imagen || tramo.imagen.toLowerCase().includes(imagen.toLowerCase())) &&
+            (!puntos_clave || tramo.puntos_clave.toLowerCase().includes(puntos_clave.toLowerCase())) &&
+            (!descripcion || tramo.descripcion.toLowerCase().includes(descripcion.toLowerCase())) &&
+            (!equipo_local || tramo.equipo_local.toLowerCase().includes(equipo_local.toLowerCase())) &&
+            (!prefectura || tramo.prefectura.includes(prefectura))
         );
     });
 
     res.json(pistasFiltradas);
 });
+
 
 
 
