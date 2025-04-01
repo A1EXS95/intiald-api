@@ -768,47 +768,78 @@ const tramos = [
 
 
 app.get("/api/tramos", (req, res) => {
-    const { nombre, nombre_japones, longitud, tiempo_media, imagen, puntos_clave, descripcion, equipo_local, prefectura } = req.query;
+    try {
+        // Extraemos los parámetros de la query
+        const { nombre, nombre_japones, longitud, tiempo_media, imagen, puntos_clave, descripcion, equipo_local, prefectura } = req.query;
 
-    let pistasFiltradas = tramos;
-    if (nombre) {
-        const nombre = nombre.split(", ").map(n => n.toLowerCase().trim());
-        pistasFiltradas = pistasFiltradas.filter(pista => pista.nombre.toLowerCase().includes(nombre.toLowerCase()));
-    }
-    if (nombre_japones) {
-        const nombre_japones = nombre_japones.split(", ").map(n => n.toLowerCase().trim());
-        pistasFiltradas = pistasFiltradas.filter(pista => pista.nombre_japones.toLowerCase().includes(nombre_japones.toLowerCase()));
-    }
-    if (longitud) {
-        const longitud = longitud.split(", ").map(l => l.toLowerCase().trim());
-        pistasFiltradas = pistasFiltradas.filter(pista => pista.longitud.toLowerCase().includes(longitud.toLowerCase()));
-    }
-    if (tiempo_media) {
-        const tiempo_media = tiempo_media.split(", ").map(t => t.toLowerCase().trim());
-        pistasFiltradas = pistasFiltradas.filter(pista => pista.tiempo_media.toLowerCase().includes(tiempo_media.toLowerCase()));
-    }
-    if (imagen) {
-        const imagen = imagen.split(", ").map(i => i.toLowerCase().trim());
-        pistasFiltradas = pistasFiltradas.filter(pista => pista.imagen.toLowerCase().includes(imagen.toLowerCase()));
-    }
-    if (puntos_clave) {
-        const puntos_clave = puntos_clave.split(", ").map(p => p.toLowerCase().trim());
-        pistasFiltradas = pistasFiltradas.filter(pista => pista.puntos_clave.toLowerCase().includes(puntos_clave.toLowerCase()));
-    }
-    if (descripcion) {
-        const descripcion = descripcion.split(", ").map(d => d.toLowerCase().trim());
-        pistasFiltradas = pistasFiltradas.filter(pista => pista.descripcion.toLowerCase().includes(descripcion.toLowerCase()));
-    }
-    if (equipo_local) {
-        const equipo_local = equipo_local.split(", ").map(e => e.toLowerCase().trim());
-        pistasFiltradas = pistasFiltradas.filter(pista => pista.equipo_local.toLowerCase().includes(equipo_local.toLowerCase()));
-    }
-    if (prefectura) {
-        const prefectura = prefectura.split(", ").map(p => p.toLowerCase().trim());
-        pistasFiltradas = pistasFiltradas.filter(pista => pista.prefectura.some(p => prefectura.includes(p.toLowerCase())));
-    }
+        let pistasFiltradas = tramos;
 
-    res.json(pistasFiltradas);
+        if (nombre) {
+            const nombres = nombre.split(",").map(n => n.trim().toLowerCase());
+            pistasFiltradas = pistasFiltradas.filter(pista => 
+                nombres.some(n => pista.nombre.toLowerCase().includes(n))
+            );
+        }
+
+        if (nombre_japones) {
+            const nombresJaponeses = nombre_japones.split(",").map(n => n.trim().toLowerCase());
+            pistasFiltradas = pistasFiltradas.filter(pista => 
+                nombresJaponeses.some(n => pista.nombre_japones.toLowerCase().includes(n))
+            );
+        }
+
+        if (longitud) {
+            const longitudes = longitud.split(",").map(l => parseFloat(l.trim()));
+            pistasFiltradas = pistasFiltradas.filter(pista => longitudes.includes(pista.longitud));
+        }
+
+        if (tiempo_media) {
+            const tiempos = tiempo_media.split(",").map(t => parseFloat(t.trim()));
+            pistasFiltradas = pistasFiltradas.filter(pista => tiempos.includes(pista.tiempo_media));
+        }
+
+        if (imagen) {
+            const imagenes = imagen.split(",").map(i => i.trim().toLowerCase());
+            pistasFiltradas = pistasFiltradas.filter(pista => 
+                imagenes.some(i => pista.imagen.toLowerCase().includes(i))
+            );
+        }
+
+        if (puntos_clave) {
+            const puntos = puntos_clave.split(",").map(p => p.trim().toLowerCase());
+            pistasFiltradas = pistasFiltradas.filter(pista => 
+                puntos.some(p => pista.puntos_clave.toLowerCase().includes(p))
+            );
+        }
+
+        if (descripcion) {
+            const descripciones = descripcion.split(",").map(d => d.trim().toLowerCase());
+            pistasFiltradas = pistasFiltradas.filter(pista => 
+                descripciones.some(d => pista.descripcion.toLowerCase().includes(d))
+            );
+        }
+
+        if (equipo_local) {
+            const equipos = equipo_local.split(",").map(e => e.trim().toLowerCase());
+            pistasFiltradas = pistasFiltradas.filter(pista => 
+                equipos.some(e => pista.equipo_local.toLowerCase().includes(e))
+            );
+        }
+
+        if (prefectura) {
+            const prefecturas = prefectura.split(",").map(p => p.trim().toLowerCase());
+            pistasFiltradas = pistasFiltradas.filter(pista => 
+                Array.isArray(pista.prefectura) 
+                    ? pista.prefectura.some(p => prefecturas.includes(p.toLowerCase()))
+                    : prefecturas.includes(pista.prefectura.toLowerCase())
+            );
+        }
+
+        res.json(pistasFiltradas);
+    } catch (error) {
+        console.error("Error en la API de tramos:", error);
+        res.status(500).json({ error: "Error interno en el servidor" });
+    }
 });
 
 
