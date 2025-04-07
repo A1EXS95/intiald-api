@@ -843,12 +843,446 @@ app.get("/api/tramos", (req, res) => {
 });
 
 
+// FALTAN FOTOGRAFÍAS
 
 
+const pilotos = [
+    {
+        id: 1,
+        nombre: "Takumi Fujiwara",
+        nombre_japones: "藤原 拓海",
+        marca: "Toyota",
+        modelo: "Spriter Trueno GT-APEX (AE86)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/takumi.png",
+        descripcion:"Takumi Fujiwara es el protagonista de Initial D, un joven tranquilo e introvertido que desarrolla un talento excepcional para las carreras callejeras sin siquiera darse cuenta. Trabaja en una estación de servicio y reparte tofu para la tienda de su padre en el legendario Toyota AE86 Sprinter Trueno, lo que sin saberlo, lo convierte en un conductor increíblemente hábil en los descensos del Paso de Akina.",
+        equipo:["Akina SpeedStars", "Project D"] 
+    },
+    // {
+    //     id: 2,
+    //     nombre: "Eikichi Shimamura",
+    //     nombre_japones: "藤原 拓海",
+    //     marca: "Nissan",
+    //     modelo: "Skyline GT-R V-Spec II (BNR32)",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Eikichi Shimamura es el carismático y orgulloso líder de los Hakone Thunder Soldiers, un equipo de carreras callejeras especializado en enfrentamientos en las desafiantes rutas de Hakone. Con una personalidad fuerte y un estilo de conducción agresivo, es un rival formidable para Project D y un firme creyente en la superioridad de la tracción en las cuatro ruedas (4WD).",
+    //     equipo:["Hakone Thunder Soldiers"] 
+    // },
+    {
+        id: 3,
+        nombre: "Takeshi Nakazato",
+        nombre_japones: "中里 毅",
+        marca: "Nissan",
+        modelo: "Skyline GT-R V-Spec II (BNR32)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/takeshi.png",
+        descripcion:"Takeshi Nakazato es el líder de los Myogi NightKids, un equipo de corredores callejeros especializado en carreras de alta velocidad y agarre. Es un piloto serio y determinado, con un fuerte orgullo por los autos de tracción integral (AWD) y un enfoque en la estabilidad sobre el derrape. Aunque inicialmente subestima a Takumi Fujiwara, con el tiempo desarrolla un gran respeto por él y por otros pilotos con talento puro.",
+        equipo:["NightKids"] 
+    },
+    // {
+    //     id: 4,
+    //     nombre: "Shinji Inui",
+    //     nombre_japones: "乾 信司",
+    //     marca: "Toyota",
+    //     modelo: "Spriter Trueno GT-APEX (AE86)",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Shinji Inui es un joven piloto prodigio que compite para Team Sidewinder, un equipo de carreras de élite en Initial D Final Stage. A pesar de su edad y apariencia inocente, es un conductor increíblemente talentoso y un rival digno para Takumi Fujiwara. Su conexión con los caminos de Kanagawa y su habilidad innata lo convierten en una amenaza formidable en las carreras de downhill.",
+    //     equipo:["Sidewinder"] 
+    // },
+    {
+        id: 5,
+        nombre: "Shingo Shoji",
+        nombre_japones: "庄司 慎吾",
+        marca: "Honda",
+        modelo: "Civic SiR-II (EG6)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/shingo.png",
+        descripcion:"Shingo Shoji es uno de los pilotos más agresivos de Initial D y miembro destacado de los Myogi NightKids, donde actúa como el segundo al mando después de Takeshi Nakazato. Es conocido por su estilo de conducción temerario y sucio, a menudo usando tácticas desleales para ganar. Su actitud arrogante y su desprecio por las habilidades de sus oponentes lo convierten en uno de los rivales más problemáticos.",
+        equipo:["NightKids"] 
+    },
+    {
+        id: 6,
+        nombre: "Ryosuke Takahashi",
+        nombre_japones: "高橋 涼介",
+        marca: "Mazda",
+        modelo: "SAVANNA RX-7 ∞ III (FC3S)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/ryosuke.png",
+        descripcion:"Ryosuke Takahashi es el fundador y líder de los Akagi RedSuns y el cerebro detrás de Project D. Es conocido como el 'Cometa Blanco de Akagi', debido a su estilo de conducción analítico y su capacidad para formular estrategias ganadoras. Aunque en el pasado fue considerado el mejor corredor callejero de Gunma, se retira de las carreras individuales para enfocarse en la gestión de Project D, con el objetivo de crear a los pilotos más rápidos de Japón.",
+        equipo:["Akagi Redsuns", "Project D"] 
+    },
+    {
+        id: 7,
+        nombre: "Mako Sato",
+        nombre_japones: "佐藤 真子",
+        marca: "Nissan",
+        modelo: "SilEighty",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/mako.png",
+        descripcion:"Mako Sato es la talentosa y carismática piloto del equipo Impact Blue, junto con su copiloto Sayuki. Es una experta en carreras de downhill y una de las pocas corredoras femeninas en Initial D. Conocida por su estilo de conducción fluido y agresivo, domina el paso de montaña de Usui, aprovechando al máximo la tracción y estabilidad de su Nissan Sileighty.",
+        equipo:["Impact Blue"] 
+    },
+    {
+        id: 8,
+        nombre: "Kyoichi Sudo",
+        nombre_japones: "須藤 京",
+        marca: "Mitsubishi",
+        modelo: "Lancer Evolution III GSR (CE9A)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/kyoichi.png",
+        descripcion:"Kyoichi Sudo es el líder del Team Emperor, un equipo de corredores callejeros compuesto exclusivamente por Mitsubishi Lancer Evolution (Evos). Es un piloto extremadamente técnico, con un enfoque implacable en la conducción de agarre (grip racing). Su mentalidad calculadora y su confianza absoluta en los autos AWD lo convierten en uno de los rivales más formidables de Initial D.",
+        equipo:["Team Emperor"] 
+    },
+    {
+        id: 9,
+        nombre: "Kenji",
+        nombre_japones: "健二",
+        marca: "Nissan",
+        modelo: "180SX Type II",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/kenji.png",
+        descripcion:"Kenji es uno de los pilotos principales de los Akina SpeedStars, el equipo local de carreras en el Monte Akina. Aunque no es tan destacado como su líder Iketani o el prodigio Takumi Fujiwara, es un corredor experimentado y confiable dentro del grupo. A pesar de su bajo perfil, es un apasionado del automovilismo y siempre está presente para apoyar a su equipo.",
+        equipo:["Akina SpeedStars"] 
+    },
+    {
+        id: 10,
+        nombre: "Keisuke Takahashi",
+        nombre_japones: "高橋 啓介",
+        marca: "Mazda",
+        modelo: "RX-7 Type R (FD3S)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/keisuke.png",
+        descripcion:"Keisuke Takahashi es uno de los personajes más complejos de Initial D, conocido tanto por su gran habilidad al volante como por su personalidad apasionada y algo impulsiva. Es el hermano menor de Ryosuke Takahashi y uno de los pilotos principales de Project D, el equipo fundado por su hermano para desafiar a los mejores corredores de todo Japón. A lo largo de la serie, Keisuke pasa de ser un piloto agresivo y algo inmaduro a un corredor más refinado y estratégico, inspirado por la evolución de su hermano y la relación con su principal rival, Takumi Fujiwara.",
+        equipo:["Akagi Redsuns", "Project D"] 
+    },
+    // {
+    //     id: 11,
+    //     nombre: "Go Hojo",
+    //     nombre_japones: "北条 豪",
+    //     marca: "Honda",
+    //     modelo: "NSX",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Go Hojo es el líder de Sidewinder, un equipo de carreras callejeras que se especializa en carreras uphill. Con una gran habilidad técnica y un enfoque en la precisión, Go es conocido por su conducción calculadora y eficiente. Su objetivo es superar a todos sus rivales, especialmente a los equipos más establecidos como Project D y Emperor, con un enfoque meticuloso en las carreras de subida (uphill), donde su control del automóvil es clave.",
+    //     equipo:["Sidewinder"]
+    // },
+    {
+        id: 12,
+        nombre: "Daiki Ninomiya",
+        nombre_japones: "二宮 大輝",
+        marca: "Honda",
+        modelo: "Civic Type R (EK9)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/daiki.png",
+        descripcion:"Daiki Ninomiya es un estudiante de la prestigiosa Escuela Todo, conocida por formar a algunos de los pilotos más hábiles y estratégicos en el mundo de las carreras. Ninomiya es uno de los jóvenes talentos de la escuela y un piloto de gran habilidad, aunque su arrogancia y actitud altanera lo convierten en un personaje controvertido dentro del universo de Initial D.",
+        equipo:["Todo School"] 
+    },
+    {
+        id: 13,
+        nombre: "Bunta Fujiwara ",
+        nombre_japones: "藤原 文太",
+        marca: "Subaru",
+        modelo: "Impreza WRX STi Coupe Type R Version V (GC8F)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/bunta.png",
+        descripcion:"Bunta Fujiwara es el padre de Takumi Fujiwara, el protagonista de Initial D, y propietario de una tienda de tofu en la prefectura de Gunma. Aunque su apariencia tranquila y su vida aparentemente común como dueño de un negocio familiar podrían hacerle parecer ordinario, Bunta es un hombre increíblemente astuto y experimentado con un profundo conocimiento de las carreras de coches. Su relación con Takumi es en gran parte silenciosa, pero su influencia sobre él es profunda. Bunta no solo es un padre, sino también un mentor indirecto para su hijo, ayudándolo a desarrollar su increíble habilidad de conducción sin una enseñanza formal.",
+        equipo:["No participa en ningún equipo."] 
+    },
+    {
+        id: 14,
+        nombre: "Wataru Akiyama",
+        nombre_japones: "秋山 渉",
+        marca: "Toyota",
+        modelo: "Corolla Levin GT-APEX (AE86)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/wataru.png",
+        descripcion:"Wataru Akiyama es un corredor callejero de la Prefectura de Saitama, conocido por su habilidad técnica y su enfoque meticuloso en las carreras. Es un piloto con más experiencia que muchos de sus rivales en Initial D, lo que lo hace un competidor formidable en cualquier enfrentamiento. A diferencia de los corredores más impulsivos, Ataru prefiere analizar a sus oponentes y la pista antes de hacer movimientos decisivos, lo que le da una ventaja estratégica en las carreras de montaña.",
+        equipo:["Alianza del Norte de Saitama"] 
+    },
+    // {
+    //     id: 15,
+    //     nombre: "Satoshi Omiya",
+    //     nombre_japones: "大宮 智史",
+    //     marca: "Mazda",
+    //     modelo: "Roadster RS ",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Satoshi Omiya es el líder y representante del downhill de Team 246, un equipo de corredores callejeros de alto nivel en Initial D. Es un piloto con una gran confianza en sus habilidades y un estilo de conducción agresivo, pero con una mentalidad estratégica que lo convierte en un rival difícil de vencer. Su equipo, Team 246, es conocido por su enfoque serio en las carreras y por desafiar a algunos de los mejores corredores de Japón.",
+    //     equipo:["Team 246"] 
+    // },
+    // {
+    //     id: 16,
+    //     nombre: "Rin Hojo",
+    //     nombre_japones: "北条 凛",
+    //     marca: "Nissan",
+    //     modelo: "Skyline GT-R V-Spec II (BNR32)",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Rin Hojo es un personaje misterioso, intimidante y temido en la escena de las carreras callejeras, conocido como el 'Grim Reaper'. Con a su estilo de conducción brutal y su implacable actitud en la pista. Es el hermano mayor de Go Hojo, líder de Sidewinder, y aunque ambos son pilotos excepcionales, sus enfoques hacia las carreras y la vida en general son completamente diferentes.",
+    //     equipo:["No participa en ningún equipo."] 
+    // },
+    // {
+    //     id: 17,
+    //     nombre: "Ryuji Ikeda",
+    //     nombre_japones: "池田 竜次",
+    //     marca: "Nissan",
+    //     modelo: "Fairlady Z Version S",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Ryuji Ikeda es el líder de Team Spiral, un equipo de corredores callejeros conocidos por su enfoque técnico y preciso en las carreras. Su equipo se especializa en maniobras avanzadas y en la maximización del agarre en curvas, lo que los hace especialmente fuertes en trazados difíciles. Ikeda es un piloto extremadamente calculador y disciplinado, que confía más en la teoría de la conducción y la ciencia automotriz que en el instinto puro",
+    //     equipo:["Team Spiral"] 
+    // },
+    {
+        id: 18,
+        nombre: "Koichiro Iketani",
+        nombre_japones: "池谷 浩一郎",
+        marca: "Nissan",
+        modelo: "Silvia K's",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/koichiro.png",
+        descripcion:"Koichiro Iketani es el líder de los Akina SpeedStars, un equipo de corredores locales que compiten en el Monte Akina. A pesar de su posición como líder, Iketani no es el piloto más talentoso de la serie, y a menudo se siente inseguro sobre sus propias habilidades. Sin embargo, su determinación y amor por las carreras lo convierten en un personaje carismático y entrañable.",
+        equipo:["Akina SpeedStars"] 
+    },
+    // {
+    //     id: 19,
+    //     nombre: "Kobayakawa",
+    //     nombre_japones: "小早川",
+    //     marca: "Mitsubishi",
+    //     modelo: "Lancer Evolution VII GSR (CT9A)",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Kobayakawa es el piloto de uphill (subida) de Team 246, un equipo conocido por su enfoque agresivo y su dominio en carreteras exigentes. Como especialista en uphill, su estilo de conducción se centra en la aceleración, la potencia y la tracción, aprovechando al máximo cada recta y salida de curva para mantener la velocidad. Aunque no es tan famoso como otros corredores en Initial D, su habilidad en subidas lo convierte en un oponente desafiante en su terreno.",
+    //     equipo:["Team 246"] 
+    // },
+    // {
+    //     id: 20,
+    //     nombre: "Ken Kogashiwa",
+    //     nombre_japones: "小柏 健",
+    //     marca: "Toyota",
+    //     modelo: "MR2 G-Limited (SW20)",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Ken Kogashiwa es un veterano corredor callejero y el padre de Kai Kogashiwa, conocido por ser el eterno rival de Bunta Fujiwara. Ambos compartieron una juventud marcada por las carreras en los pasos de montaña, donde se enfrentaron en múltiples ocasiones, consolidando una rivalidad legendaria. Aunque ya no compite activamente, su legado vive a través de su hijo Kai, a quien ha entrenado con una filosofía similar a la de Bunta con Takumi.",
+    //     equipo:["No participa en ningún equipo."] 
+    // },
+    {
+        id: 21,
+        nombre: "Kai Kogashiwa",
+        nombre_japones: "小柏 カイ",
+        marca: "Toyota",
+        modelo: "MR-S S-Edition (ZZW30)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/kai.png",
+        descripcion:"Kai Kogashiwa es un talentoso corredor callejero de la prefectura de Tochigi y el hijo de Ken Kogashiwa, uno de los rivales más legendarios de Bunta Fujiwara. Siguiendo los pasos de su padre, Kai se ha convertido en un corredor formidable, con un estilo de conducción que combina técnica agresiva, control del vehículo y una estrategia calculada.",
+        equipo:["Katagiri"] 
+    },
+    // {
+    //     id: 22,
+    //     nombre: "Hideo Minagawa",
+    //     nombre_japones: "皆川 英雄",
+    //     marca: "Toyota",
+    //     modelo: "Supra RZ",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Hideo Minagawa es un piloto profesional y miembro del equipo Katagiri, un grupo de corredores altamente calificados que representan un nivel superior dentro del mundo de Initial D. A diferencia de muchos pilotos callejeros, Hideo tiene experiencia en competencias reales, lo que le otorga una ventaja significativa en cuanto a técnica, precisión y conocimiento del automovilismo.",
+    //     equipo:["Katagiri"] 
+    // },
+    // {
+    //     id: 23,
+    //     nombre: "Hiroya Okuyama",
+    //     nombre_japones: "奥山 広也",
+    //     marca: "Nissan",
+    //     modelo: "Silvia Spec R Aero (S15)",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Hiroya Okuyama es un habilidoso corredor y miembro de Team Spiral, un equipo que se distingue por su enfoque en técnicas avanzadas de conducción y estrategias poco convencionales. Es un piloto altamente analítico, que prefiere desgastar mentalmente a sus oponentes antes de vencerlos en la carretera. Su estilo de conducción no solo se basa en velocidad y control, sino también en jugar con la psicología de sus rivales, empujándolos a cometer errores.",
+    //     equipo:["Team Spiral"] 
+    // },
+    {
+        id: 24,
+        nombre: "Itsuki Takeuchi",
+        nombre_japones: "武内 樹",
+        marca: "Toyota",
+        modelo: "Corolla Levin SR (AE85)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/itsuki.png",
+        descripcion:"Itsuki Takeuchi es el mejor amigo de Takumi Fujiwara y uno de los miembros más conocidos del Akina SpeedStars, un equipo de corredores relativamente novatos en comparación con otros equipos más experimentados de Initial D. Aunque Itsuki no tiene el mismo talento natural para las carreras que su amigo Takumi, es un piloto apasionado y determinado, que se dedica al mundo de las carreras con gran entusiasmo y ganas de aprender.",
+        equipo:["Akina SpeedStars"] 
+    },
+    // {
+    //     id: 25,
+    //     nombre: "Toshiya Joshima",
+    //     nombre_japones: "城島 俊也",
+    //     marca: "Honda",
+    //     modelo: "S2000",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Toshiya Joshima es uno de los principales miembros de Purple Shadow, un equipo de élite basado en Tsukuba que se especializa en carreras de alta velocidad y estrategias complejas. Es un corredor extremadamente experimentado y hábil, conocido por su enfoque preciso y meticuloso en cada carrera. Joshima se caracteriza por su mentalidad calculadora y su capacidad para mantener el control incluso en situaciones de alta presión.",
+    //     equipo:["Purple Shadow"] 
+    // },
+    {
+        id: 26,
+        nombre: "Toru Suetsugu",
+        nombre_japones: "末次 トオル",
+        marca: "Mazda",
+        modelo: "Eunos Roadster",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/toru.png",
+        descripcion:"Toru Suetsugu es un piloto temerario y arriesgado que representa al equipo Seven Star Leaf, basado en la Momiji Line. Conocido por su estilo de conducción extremadamente arriesgado, Toru se enfrenta a sus rivales con una estrategia kamikaze, lo que lo convierte en uno de los corredores más impredecibles y temidos en el circuito de carreras callejeras. Su habilidad para tomar curvas a velocidades extremas y su falta de miedo ante el peligro lo hacen sobresalir, aunque su estilo lo pone constantemente al borde del desastre.",
+        equipo:["Seven Star Leaf"] 
+    },
+    {
+        id: 27,
+        nombre: "Tomoyuki Tachi",
+        nombre_japones: "舘 智幸",
+        marca: "Honda",
+        modelo: "Todo School Spoon Civic Type R Demo Car (EK9)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/tomoyuki.png",
+        descripcion:"Tomoyuki Tachi es un piloto profesional y graduado de la renombrada Todo School, una institución conocida por formar a algunos de los corredores más talentosos y técnicos de Initial D. Tachi representa la culminación de una formación rigurosa y disciplina en el manejo de vehículos, habiendo perfeccionado sus habilidades para enfrentarse a los mejores corredores. Su experiencia y conocimiento técnico lo convierten en un competidor formidable en cualquier pista, especialmente en carreras de alto nivel.",
+        equipo:["Todo School"] 
+    },
+    {
+        id: 28,
+        nombre: "'Smiley' Sakai",
+        nombre_japones: "スマイリー 酒井",
+        marca: "Honda",
+        modelo: "Integra Type R (DC2)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/smiley.png",
+        descripcion:"Smiley Sakai es un estudiante destacado de la Todo School, conocido tanto por su habilidad en las carreras como por su actitud alegre y optimista. Aunque está en las etapas de su formación, Sakai ya muestra un gran potencial como piloto gracias a su fuerte base técnica y su capacidad para adaptarse a diversas situaciones en las pistas. Su estilo de conducción refleja su enfoque positivo y su disposición a aprender, lo que lo convierte en un talento prometedor en el mundo de las carreras callejeras.",
+        equipo:["Todo School"] 
+    },
+    {
+        id: 29,
+        nombre: "Sakamoto",
+        nombre_japones: "坂本",
+        marca: "Suzuki",
+        modelo: "Cappuccino ",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/sakamoto.png",
+        descripcion:"Sakamoto es un piloto profesional de rally que se une al Northern Saitama Alliance para enfrentarse a Project D en sus batallas en la carretera. Con una gran experiencia en el rally, Sakamoto trae consigo un conjunto único de habilidades que lo hacen destacar en las carreras, especialmente en condiciones difíciles y desafiantes. Su habilidad para manejar vehículos en terrenos irregulares y condiciones extremas lo convierte en un valioso miembro para el Northern Saitama Alliance, un equipo que busca utilizar su destreza para derrotar a Project D en carreras clave.",
+        equipo:["Alianza del Norte de Saitama"] 
+    },
+    {
+        id: 30,
+        nombre: "Nobuhiko Akiyama",
+        nombre_japones: "秋山 延彦",
+        marca: "Toyota",
+        modelo: "Altezza RS200 Z Edition (SXE10)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/nobuhiko.png",
+        descripcion:"Nobuhiko Akiyama es el líder del Northern Saitama Alliance, un equipo de carreras que se enfrenta a rivales como Project D en las intensas batallas de Initial D. Con un enfoque estratégico y calculador, Nobuhiko es conocido por su habilidad para coordinar a su equipo y crear planes de carrera que aprovechan las fortalezas de cada uno de sus miembros. Es un líder nato que, a pesar de no ser tan emocionalmente expresivo como otros, tiene una gran capacidad para tomar decisiones bajo presión.",
+        equipo:["Alianza del Norte de Saitama"] 
+    },
+    {
+        id: 31,
+        nombre: "Kyoko Iwase",
+        nombre_japones: "岩瀬 恭子",
+        marca: "Mazda",
+        modelo: "Efini RX-7 Type R (FD3S)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/kyoko.png",
+        descripcion:"Kyoko Iwase es una de las pilotos más rápidas en el universo de Initial D, inicialmente conocida por su rol como representante de subida del equipo no nombrado de Sadamine. Con un talento natural para la velocidad, Kyoko se distingue en las subidas de montaña, donde su habilidad para mantener el control y velocidad la convierte en una competidora formidable. Su carácter y destreza como conductora la llevan a formar parte más tarde del Northern Saitama Alliance, donde su habilidad para acelerar en terrenos desafiantes le da una ventaja en las batallas contra equipos como Project D.",
+        equipo:["Alianza del Norte de Saitama"] 
+    },
+    // {
+    //     id: 32,
+    //     nombre: "Kozo Hoshino",
+    //     nombre_japones: "星野 好造",
+    //     marca: "Nissan",
+    //     modelo: "Skyline GT-R V-Spec II Nür (BNR34)",
+    //     //imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/akina.png",
+    //     descripcion:"Kozo Hoshino es uno de los miembros más destacados del equipo Purple Shadow, un equipo de carreras basado en Tsukuba. Junto a Toshiya Joshima, Kozo es conocido por ser un piloto extremadamente talentoso que ha demostrado su habilidad en algunas de las competencias más difíciles y con los rivales más formidables. Su estilo de conducción está marcado por una gran técnica y una enorme capacidad de adaptación, lo que lo convierte en una de las figuras más temidas en las competiciones en Tsukuba. Además de ser un excelente piloto, Kozo también es conocido por su enfoque serio y profesional dentro de las carreras, lo que le ha valido el respeto tanto de sus compañeros como de sus rivales.",
+    //     equipo:["Purple Shadow"] 
+    // },
+    {
+        id: 33,
+        nombre: "Kenta Nakamura",
+        nombre_japones: "中村 賢太",
+        marca: "Nissan",
+        modelo: "Silvia Q's (S14)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/kenta.png",
+        descripcion:"Kenta Nakamura es uno de los miembros más jóvenes y prometedores de los Akagi RedSuns, el equipo de carreras fundado por Ryosuke Takahashi y formado principalmente por corredores excepcionales de la región de Akagi. A pesar de su juventud, Kenta es conocido por su habilidad al volante y su actitud decidida, cualidades que le permiten destacar dentro de un equipo tan competitivo y de alto nivel como los RedSuns. Si bien está en las primeras etapas de su carrera como piloto, Kenta tiene un gran potencial y su desarrollo en las carreras es algo que los miembros más experimentados del equipo observan con mucho interés.",
+        equipo:["Akagi Redsuns", "Project D"] 
+    },
+    {
+        id: 34,
+        nombre: "Ichijo",
+        nombre_japones: "一条",
+        marca: "Mitsubishi",
+        modelo: "Lancer Evolution VI GSR Tommi Makinen Edition (CP9A)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/ichijo.png",
+        descripcion:"Ichijo es el piloto de descenso del equipo Tsuchisaka Lancer Evolution, conocido por su dominio excepcional de las carreras de montaña y su habilidad única para manejar el imponente Mitsubishi Lancer Evolution, uno de los autos más temidos y respetados en las carreras de descenso. A pesar de no ser uno de los personajes más prominentes dentro del universo de Initial D, su habilidad con el Lancer Evolution y su estilo de conducción agresivo y preciso lo convierten en un piloto formidable en su propia categoría. Su personalidad, aunque menos expresiva que la de otros personajes más conocidos, está marcada por una intensa dedicación a su oficio y un fuerte deseo de alcanzar la perfección en cada carrera.",
+        equipo:["Tsuchisaka Lancer Evolution Team"] 
+    },
+    {
+        id: 35,
+        nombre: "Atsuro Kawai",
+        nombre_japones: "川井 淳郎",
+        marca: "Nissan",
+        modelo: "Skyline 25GT Turbo (ER34)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/atsuo.png",
+        descripcion:"Atsuro Kawai es un experimentado piloto de hillclimb y el líder del equipo Seven Star Leaf, basado en Tochigi, conocido por su habilidad en las carreras de subida y por ser un competidor extremadamente decidido y calculador. A lo largo de su carrera, ha demostrado ser un líder natural, dirigiendo a su equipo con una mezcla de estrategia inteligente y un enfoque agresivo que lo convierte en una amenaza en las competencias de montaña.",
+        equipo:["Seven Star Leaf"] 
+    },
+    {
+        id: 36,
+        nombre: "Aikawa",
+        nombre_japones: "会川",
+        marca: "Mitsubishi",
+        modelo: "Lancer Evolution V GSR (CP9A)",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/aikawa.png",
+        descripcion:"Aikawa es un talentoso y determinado piloto uphill del equipo Tsuchisaka Lancer Evolution, un equipo especializado en carreras de montaña que se caracteriza por sus vehículos Lancer Evolution, diseñados para maximizar el rendimiento en terrenos difíciles. Aikawa se especializa en las carreras de ascenso en colinas empinadas y carreteras de montaña, donde su habilidad para manejar las exigencias de estos circuitos es fundamental para su equipo.",
+        equipo:["Tsuchisaka Lancer Evolution Team"] 
+    },
+    {
+        id: 37,
+        nombre: "Miki",
+        nombre_japones: "御木",
+        marca: "Toyota",
+        modelo: "Celica GT-Four",
+        imagen: "https://raw.github.com/A1EXS95/initiald-api-img/main/img/miki.png",
+        descripcion:"Miki es un personaje que aparece en la historia de Initial D como el ex-novio de Natsuki Mogi, quien es un personaje significativo en la vida de Takumi Fujiwara. Miki es un joven con una personalidad despreocupada y un carácter algo provocador, que destaca principalmente por su relación con Natsuki en el pasado. Aunque su presencia en la historia no es tan prominente como la de otros personajes principales, su vínculo con Natsuki y su comportamiento en ciertas situaciones lo convierten en una figura interesante dentro del contexto de la serie.",
+        equipo:["No participa en ningún equipo."]  
+    },
+
+]
 
 
+app.get("/api/pilotos", (req, res) => {
+    try {
+        // Extraemos los parámetros de la query
+        const { nombre, nombre_japones, marca, modelo, imagen, descripcion, equipo } = req.query;
 
+        let pilotosFiltrados = pilotos; // Usamos el array correcto
 
+        if (nombre) {
+            const nombres = nombre.split(",").map(n => n.trim().toLowerCase());
+            pilotosFiltrados = pilotosFiltrados.filter(piloto => 
+                nombres.some(n => piloto.nombre.toLowerCase().includes(n))
+            );
+        }
+
+        if (nombre_japones) {
+            const nombresJaponeses = nombre_japones.split(",").map(n => n.trim().toLowerCase());
+            pilotosFiltrados = pilotosFiltrados.filter(piloto => 
+                nombresJaponeses.some(n => piloto.nombre_japones.toLowerCase().includes(n))
+            );
+        }
+
+        if (marca) {
+            const marcas = marca.split(",").map(m => m.trim().toLowerCase());
+            pilotosFiltrados = pilotosFiltrados.filter(piloto => 
+                marcas.some(m => piloto.marca.toLowerCase().includes(m))
+            );
+        }
+
+        if (modelo) {
+            const modelos = modelo.split(",").map(m => m.trim().toLowerCase());
+            pilotosFiltrados = pilotosFiltrados.filter(piloto => 
+                modelos.some(m => piloto.modelo.toLowerCase().includes(m))
+            );
+        }
+
+        if (imagen) {
+            const imagenes = imagen.split(",").map(i => i.trim().toLowerCase());
+            pilotosFiltrados = pilotosFiltrados.filter(piloto => 
+                imagenes.some(i => piloto.imagen.toLowerCase().includes(i))
+            );
+        }
+
+        if (descripcion) {
+            const descripciones = descripcion.split(",").map(d => d.trim().toLowerCase());
+            pilotosFiltrados = pilotosFiltrados.filter(piloto => 
+                descripciones.some(d => piloto.descripcion.toLowerCase().includes(d))
+            );
+        }
+
+        if (equipo) {
+            const equipos = equipo.split(",").map(e => e.trim().toLowerCase());
+            pilotosFiltrados = pilotosFiltrados.filter(piloto => 
+                piloto.equipo.some(e => equipos.includes(e.toLowerCase()))
+            );
+        }
+
+        res.json(pilotosFiltrados);
+    } catch (error) {
+        console.error("Error en la API de pilotos:", error);
+        res.status(500).json({ error: "Error interno en el servidor" });
+    }
+});
 
 
 
